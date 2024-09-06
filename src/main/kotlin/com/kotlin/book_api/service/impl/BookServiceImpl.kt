@@ -10,7 +10,15 @@ class BookServiceImpl(
     private val bookRepository: BookRepository) : BookService {
     override fun getBooks(): BookResponse {
         val books = bookRepository.findAll();
-        return BookResponse("success", books);
+        return BookResponse(status = "success", books = books);
+    }
+
+    override fun getBook(id: Long): BookResponse {
+        val book = bookRepository.findById(id).orElse(null)
+        return BookResponse(
+            status = if (book != null) "success" else "failed",
+            book = book
+        )
     }
 
 }
