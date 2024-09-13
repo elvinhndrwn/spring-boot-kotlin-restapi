@@ -7,4 +7,5 @@ interface BookService {
     fun getBooks(): BookResponse
     fun getBook(id: Long): BookResponse
     fun createBook(book: BookRequest): BookResponse
+    fun deleteBook(id: Long)
 }

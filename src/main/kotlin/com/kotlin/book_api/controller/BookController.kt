@@ -32,4 +32,15 @@ class BookController(private val bookService: BookService) {
         val data = bookService.createBook(book)
         return ResponseEntity(data, HttpStatus.CREATED)
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteBook(@PathVariable id: Long) : ResponseEntity<String> {
+        var book = bookService.getBook(id)
+        if(book.status == "success") {
+            bookService.deleteBook(id)
+            return ResponseEntity.ok("success")
+        }else{
+            return ResponseEntity.notFound().build()
+        }
+    }
 }

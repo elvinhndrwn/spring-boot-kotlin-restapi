@@ -33,4 +33,8 @@ class BookServiceImpl(
         return BookResponse(status = "success", book = newBook)
     }
 
+    override fun deleteBook(id: Long) {
+        bookRepository.deleteById(id)
+    }
+
 }
