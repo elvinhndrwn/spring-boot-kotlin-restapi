@@ -25,6 +25,7 @@ class BookServiceImpl(
 
     override fun createBook(book: BookRequest): BookResponse {
         val newBook = Book(
+            id = book.id,
             title = book.title,
             author = book.author,
             year = book.year ?: 0
@@ -38,14 +39,8 @@ class BookServiceImpl(
     }
 
     override fun updateBook(id: Long, book: BookRequest): BookResponse {
-        val book = Book(
-            id = id,
-            title = book.title,
-            author = book.author,
-            year = book.year
-        )
-        bookRepository.save(book)
-        return BookResponse(status = "success", book = book)
+        val newBook = book.copy(id = id)
+        return createBook(newBook)
     }
 
 }
