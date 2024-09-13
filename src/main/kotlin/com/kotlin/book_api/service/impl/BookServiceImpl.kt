@@ -37,4 +37,15 @@ class BookServiceImpl(
         bookRepository.deleteById(id)
     }
 
+    override fun updateBook(id: Long, book: BookRequest): BookResponse {
+        val book = Book(
+            id = id,
+            title = book.title,
+            author = book.author,
+            year = book.year
+        )
+        bookRepository.save(book)
+        return BookResponse(status = "success", book = book)
+    }
+
 }
