@@ -1,12 +1,11 @@
 package com.kotlin.book_api.controller
 
+import com.kotlin.book_api.dto.BookRequest
 import com.kotlin.book_api.dto.BookResponse
 import com.kotlin.book_api.service.BookService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/books")
@@ -26,5 +25,11 @@ class BookController(private val bookService: BookService) {
         } else {
             ResponseEntity.notFound().build()
         }
+    }
+
+    @PostMapping("/")
+    fun createBook(@RequestBody book: BookRequest) : ResponseEntity<BookResponse> {
+        val data = bookService.createBook(book)
+        return ResponseEntity(data, HttpStatus.CREATED)
     }
 }

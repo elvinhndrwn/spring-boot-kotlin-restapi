@@ -1,7 +1,9 @@
 package com.kotlin.book_api.service.impl
 
 import com.kotlin.book_api.BookRepository
+import com.kotlin.book_api.dto.BookRequest
 import com.kotlin.book_api.dto.BookResponse
+import com.kotlin.book_api.model.Book
 import com.kotlin.book_api.service.BookService
 import org.springframework.stereotype.Service
 
@@ -19,6 +21,16 @@ class BookServiceImpl(
             status = if (book != null) "success" else "failed",
             book = book
         )
+    }
+
+    override fun createBook(book: BookRequest): BookResponse {
+        val newBook = Book(
+            title = book.title,
+            author = book.author,
+            year = book.year ?: 0
+        )
+        bookRepository.save(newBook)
+        return BookResponse(status = "success", book = newBook)
     }
 
 }
